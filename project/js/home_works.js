@@ -59,3 +59,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('container');
     moveBlockInCircle(smallBlock, container);
 });
+
+
+
+
+
+const secondsBlock = document.querySelector('#seconds');
+const startBtn = document.querySelector('#start');
+const stopBtn = document.querySelector('#stop');
+const resetBtn = document.querySelector('#reset');
+
+let seconds = 0
+let interval = null
+
+startBtn.onclick = () => {
+    if (!interval){
+        interval = setInterval(() => {
+            seconds++
+            secondsBlock.innerHTML = seconds
+        }, 1000)
+    }
+}
+
+stopBtn.onclick = () =>{
+    clearInterval(interval)
+}
+
+resetBtn.onclick = () => {
+    seconds= 0
+    secondsBlock.innerHTML = seconds
+    clearInterval(interval)
+    interval = null
+}
