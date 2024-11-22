@@ -18,80 +18,86 @@ phoneButton.onclick = () => {
 
 //TAB SLIDER
 
-const tabContentBlocks = document.querySelectorAll('#tab_container')
-const  tabs = document.querySelectorAll('#tab_content_item_active')
+const tabContentBlocks = document.querySelectorAll('.tab_content_block')
+const  tabs = document.querySelectorAll('.tab_content_item')
+const tabsParents = document.querySelector('.tab_content_items')
+
 
 const hideTabContent = () =>{
-    tabContentBlocks.forEach(block =>{
+    tabContentBlocks.forEach((block) =>{
         block.style.display = 'none'
+    })
+    tabs.forEach((tab) =>{
+        tab.classList.remove('tab_content_item_active')
     })
 }
 
-//CONVERTOR
+const showTabContent = (id = 0) =>{
+    tabContentBlocks[id].style.display = 'block'
+    tabs[id].classList.add('tab_content_item_active')
+}
+hideTabContent()
+showTabContent()
 
-const usdInput = document.querySelector('#usd')
-const somInput = document.querySelector('#som')
-
-const converter =(element,targetElement) => {
-    element.oninput =() =>{
-        const request = new XMLHttpRequest()
-        request.open('GET','./data/convertur.json')
-        request.setRequestHeader('Content-type', 'application/json')
-        request.send()
-
-        request.onload = () => {
-            const data = JSON.parse(request.response)
-            if(element.id==='som'){
-                targetElement.value= (element.value)
+tabsParents.onclick =(event) =>{
+    if (event.target.classList.contains('tab_content_item')) {
+        tabs.forEach((tab,tabIndex) =>{
+            if (event.target === tab){
+                hideTabContent()
+                showTabContent(tabIndex)
             }
-        }
+        })
     }
 }
+let counter = 0;
 
-somInput.oninput = () => {
-    const request = new XMLHttpRequest()
-    request.open('GET','./data/convertur.json')
-    request.setRequestHeader('Content-type', 'application/json')
-    request.send()
+setInterval(() => {
+    // Скрываем текущий контент
+    hideTabContent();
 
-    request.onload = () =>{
-        const data = JSON.parse(request.response)
-        usdInput.value = (somInput.value /data.usd).toFixed(2)
+    // Увеличиваем счетчик и делаем проверку на выход за пределы массива
+    counter = (counter + 1) % tabs.length
+    // Показываем контент для текущей вкладки
+    showTabContent(counter);
+}, 3000);
+
+
+
+window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const pageHeight = document.documentElement.scrollHeight;
+
+    if (scrollPosition >= pageHeight) {
+        openModal()
     }
-}
+});
 
 
-usdInput.oninput = () => {
-    const request = new XMLHttpRequest()
-    request.open('GET','./data/convertur.json')
-    request.setRequestHeader('Content-type', 'application/json')
-    request.send()
-
-    request.onload = () =>{
-        const data = JSON.parse(request.response)
-        somInput.value = (usdInput.value * data.usd).toFixed(2)
-    }
-}
+//CONVERTOR
+//
+// const charactersList = document.querySelector('.characters_list')
+//
+// const generateCharactersCads =() =>
 
 //DRY-don`t repeat yourself
 //KISS-keep it super simple
 // cart svicher
-
-const nextButton = document.querySelector('#btn-next')
-const prevButton = document.querySelector('#btn-prev')
-const cardBlock = document.querySelector('.card')
-let carIndex = 0
-
-
-nextButton.onclick = () =>{
-    carIndex++
-    fetch(`https://jsonplaceholder.typicode.com/todos/${carIndex}`)
-        .then((response) => response.json())
-        .then((data) => {
-            cardBlock.innerHTML = `
-            <p>${data.title}</p>
-            <p>${data.completed}</p>
-            <span>${data.id}</span>
-                `
-        })
-}
+//
+// const nextButton = document.querySelector('#btn-next')
+// const prevButton = document.querySelector('#btn-prev')
+// const cardBlock = document.querySelector('.card')
+// let carIndex = 0
+//
+//
+// nextButton.onclick = () =>{
+//     carIndex++
+//     fetch(`https://jsonplaceholder.typicode.com/todos/${carIndex}`)
+//         .then((response) => response.json())
+//         .then((data) => {
+//             cardBlock.innerHTML = `
+//             <p>${data.title}</p>
+//             <p>${data.completed}</p>
+//             <span>${data.id}</span>
+//                 `
+//         })
+// }
