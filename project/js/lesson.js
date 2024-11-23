@@ -139,23 +139,51 @@ converter(eurInput, somInput , usdInput)
 const nextButton = document.querySelector('#btn-next')
 const prevButton = document.querySelector('#btn-prev')
 const cardBlock = document.querySelector('.card')
-let cardIndex = 0;
+let cardIndex = 1;
+
+
+let funcForReq =async ()=>{
+
+    let count = await fetch('http://jsonplaceholder.typicode.com/todos').then(data=>data.json())
+    console.log(count.length)
+    if(cardIndex>0 && cardIndex<=count.length){
+        console.log("rabotayu")
+        fetch(`http://jsonplaceholder.typicode.com/todos/${cardIndex}`)
+            .then((response) =>response.json())
+            .then((data) => {
+                cardBlock.innerHTML=   `
+                    <p>${data.title}</p>
+                    <p>${data.completed}</p>
+                    <span>${data.id}</span>
+                `
+            })
+    }else if(cardIndex<=0){
+        cardIndex = count.length
+        funcForReq()
+    }else if(cardIndex>=count.length){
+        cardIndex=1
+        funcForReq()
+    }
+}
+funcForReq()
 
 
 nextButton.onclick = () =>{
     cardIndex++
-    fetch(`http://jsonplaceholder.typicode.com/todos/${cardIndex}`)
-        .then((response) =>response.json())
-        .then((data) => {
-            cardBlock.innerHTML=   `
-                <p>${data.title}</p>
-                <p>${data.completed}</p>
-                <span>${data.id}</span>
-            `
-        })
+    funcForReq()
+}
+prevButton.onclick=()=>{
+    cardIndex--
+    funcForReq()
 }
 
 
+
+const reqFetch = async () => {
+    let data = await fetch('https://jsonplaceholder.typicode.com/posts').then(data => data.json())
+    console.log(data)
+}
+reqFetch()
 
 
 //погода
