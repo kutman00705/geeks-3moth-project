@@ -73,31 +73,102 @@ window.addEventListener('scroll', () => {
 });
 
 
-//CONVERTOR
-//
-// const charactersList = document.querySelector('.characters_list')
-//
-// const generateCharactersCads =() =>
 
-//DRY-don`t repeat yourself
-//KISS-keep it super simple
-// cart svicher
+const usdInput = document.querySelector('#usd')
+const somInput = document.querySelector('#som')
+
+const converter = (element, targetElement) => {
+    element.oninput = () => {
+        const request = new XMLHttpRequest();
+        request.open('GET', '../data/convertur.json',)
+        request.setRequestHeader('Content-type', 'application/json')
+        request.send()
+
+
+        request.onload = () => {
+            const data = JSON.parse(request.response)
+            if (element.id === 'som'){
+                targetElement.value = (element.value / data.usd).toFixed(2)
+            }
+            if (element.id === 'usd'){
+                targetElement.value = (element.value * data.usd).toFixed(2)
+            }
+            if (element.value === ''){
+                targetElement.value = ''
+            }
+        }
+    }
+}
+
+converter(somInput, usdInput)
+converter(usdInput, somInput)
+
+// somInput.oninput = () =>{
+//     const request = new XMLHttpRequest();
+//     request.open('GET','../data/convertur.json', )
+//     request.setRequestHeader('Content-type', 'application/json')
+//     request.send()
 //
-// const nextButton = document.querySelector('#btn-next')
-// const prevButton = document.querySelector('#btn-prev')
-// const cardBlock = document.querySelector('.card')
-// let carIndex = 0
-//
-//
-// nextButton.onclick = () =>{
-//     carIndex++
-//     fetch(`https://jsonplaceholder.typicode.com/todos/${carIndex}`)
-//         .then((response) => response.json())
-//         .then((data) => {
-//             cardBlock.innerHTML = `
-//             <p>${data.title}</p>
-//             <p>${data.completed}</p>
-//             <span>${data.id}</span>
-//                 `
-//         })
+//     request.onload = () =>{
+//         const data = JSON.parse(request.response)
+//         usdInput.value = (somInput.value / data.usd).toFixed(2)
+//     }
 // }
+//
+//
+// usdInput.oninput = () =>{
+//     const request = new XMLHttpRequest();
+//     request.open('GET','../data/convertur.json', )
+//     request.setRequestHeader('Content-type', 'application/json')
+//     request.send()
+//
+//     request.onload = () =>{
+//         const data = JSON.parse(request.response)
+//         somInput.value = (usdInput.value * data.usd).toFixed(2)
+//     }
+// }
+
+
+
+
+
+const nextButton = document.querySelector('#btn-next')
+const prevButton = document.querySelector('#btn-prev')
+const cardBlock = document.querySelector('.card')
+let cardIndex = 0;
+
+
+nextButton.onclick = () =>{
+    cardIndex++
+    fetch(`http://jsonplaceholder.typicode.com/todos/${cardIndex}`)
+        .then((response) =>response.json())
+        .then((data) => {
+            cardBlock.innerHTML=   `
+                <p>${data.title}</p>
+                <p>${data.completed}</p>
+                <span>${data.id}</span>
+            `
+        })
+}
+
+
+
+
+//погода
+
+const searchButton = document.querySelector('#search')
+const searchInput = document.querySelector('.cityName')
+const city = document.querySelector('.city')
+const temp = document.querySelector('.temp')
+
+const APP_ID= 'e417df62e04d3b1b111abeab19cea714'
+const BASE_URL ='http://api.openweathermap.org/data/2.5/weather'
+
+searchButton.onclick = () =>{
+    fetch(`${BASE_URL}?appid=${APP_ID}&q=${searchInput.value}&units=metric`)
+        .then((response) => response.json())
+        .then((data) => {
+            city.innerHTML = data.name
+            temp.innerHTML = data.main.temp
+        })
+}

@@ -91,3 +91,35 @@ resetBtn.onclick = () => {
     clearInterval(interval)
     interval = null
 }
+
+
+
+
+const charactersList = document.querySelector('.characters-list');
+
+const generateCharactersCards = () => {
+    const request = new XMLHttpRequest();
+    request.open('GET','../data/character.json');
+    request.setRequestHeader('Content-type', 'application/json')
+    request.send()
+
+    request.onload = () =>{
+        const data = JSON.parse(request.response)
+        data.forEach(character => {
+            const characterCard = document.createElement('div')
+            characterCard.classList.add('character-card')
+
+            characterCard.innerHTML = `
+                <img style="height: 300px" src="${character.photo}" alt="">
+                <h2>${character.name} </h2>
+                <h3>age: ${character.age} </h3>
+            `
+
+            charactersList.append(characterCard)
+        })
+
+    }
+
+}
+
+generateCharactersCards()
