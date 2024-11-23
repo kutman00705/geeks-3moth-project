@@ -76,8 +76,8 @@ window.addEventListener('scroll', () => {
 
 const usdInput = document.querySelector('#usd')
 const somInput = document.querySelector('#som')
-
-const converter = (element, targetElement) => {
+const eurInput = document.querySelector("#eur")
+const converter = (element, targetElement , targetElement2) => {
     element.oninput = () => {
         const request = new XMLHttpRequest();
         request.open('GET', '../data/convertur.json',)
@@ -89,19 +89,23 @@ const converter = (element, targetElement) => {
             const data = JSON.parse(request.response)
             if (element.id === 'som'){
                 targetElement.value = (element.value / data.usd).toFixed(2)
+                targetElement2.value = (element.value /data.eur).toFixed(2)
             }
             if (element.id === 'usd'){
                 targetElement.value = (element.value * data.usd).toFixed(2)
+                targetElement2.value = (element.value / data.eur *data.usd).toFixed(2)
             }
-            if (element.value === ''){
-                targetElement.value = ''
+            if (element.id === 'eur' ){
+                targetElement.value =(element.value *data.eur).toFixed(2)
+                targetElement2.value=(element.value / data.usd *data.eur).toFixed(2)
             }
         }
     }
 }
 
-converter(somInput, usdInput)
-converter(usdInput, somInput)
+converter(somInput, usdInput , eurInput)
+converter(usdInput, somInput , eurInput)
+converter(eurInput, somInput , usdInput)
 
 // somInput.oninput = () =>{
 //     const request = new XMLHttpRequest();
@@ -164,7 +168,7 @@ const temp = document.querySelector('.temp')
 const APP_ID= 'e417df62e04d3b1b111abeab19cea714'
 const BASE_URL ='http://api.openweathermap.org/data/2.5/weather'
 
-searchButton.onclick = () =>{
+searchButton.onclick = () => {
     fetch(`${BASE_URL}?appid=${APP_ID}&q=${searchInput.value}&units=metric`)
         .then((response) => response.json())
         .then((data) => {
