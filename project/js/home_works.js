@@ -123,3 +123,12 @@ const generateCharactersCards = () => {
 }
 
 generateCharactersCards()
+
+
+const req = new XMLHttpRequest();
+req.open('POST','../data/character.json');
+req.send()
+req.onload=()=>{
+    const data2 = JSON.parse(req.response)
+    console.log(data2)
+}
