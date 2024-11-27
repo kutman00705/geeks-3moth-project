@@ -76,6 +76,7 @@ startBtn.onclick = () => {
 
 stopBtn.onclick = () => {
     clearInterval(interval);
+    interval = null;
 };
 
 resetBtn.onclick = () => {
@@ -84,7 +85,6 @@ resetBtn.onclick = () => {
     clearInterval(interval);
     interval = null;
 };
-
 // Генерация карточек с использованием fetch
 const charactersList = document.querySelector('.characters-list');
 
@@ -138,3 +138,14 @@ sendData({
     age: 25,
     photo: 'https://example.com/photo.jpg'
 });
+
+function createPetal() {
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    petal.style.left = `${Math.random() * 100}vw`;
+    petal.style.animationDuration = `${Math.random() * 3 + 2}s`;
+    document.body.appendChild(petal);
+    setTimeout(() => petal.remove(), 5000);
+}
+
+setInterval(createPetal, 300);

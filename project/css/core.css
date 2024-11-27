@@ -11,7 +11,12 @@
 
 body {
     font-family: "Britannic Bold", sans-serif;
-    background: #c2d0d0;
+    background: #c2d0d0;;
+}
+
+button, .slider {
+    position: relative; /* Это важно для работы z-index */
+    z-index: 1;
 }
 
 .btn {
@@ -120,6 +125,118 @@ input {
 }
 
 :root {
-    --orange: rgba(61, 102, 92, 0.66);
+    --orange: rgb(248, 14, 14);
     --black: black;
+}
+
+:root {
+    --main-bg-color: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb);
+    --anime-border-color: #ff77aa;
+    --anime-btn-bg: #ff6392;
+    --anime-btn-hover: #ff94a9;
+    --anime-text-color: #fff;
+    --anime-accent-color: #f7d358;
+}
+
+/* Общий фон */
+body {
+    font-family: 'Anime Ace', sans-serif; /* Используйте аниме-стиль шрифта */
+    background: var(--main-bg-color);
+    color: var(--anime-text-color);
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Заголовок с анимацией */
+h2 {
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3), 4px 4px 15px #ff77aa;
+}
+
+/* Стили для кнопок */
+button {
+    background: var(--anime-btn-bg);
+    color: var(--anime-text-color);
+    border: 2px solid var(--anime-border-color);
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: var(--anime-btn-hover);
+    transform: translateY(-3px);
+}
+
+/* Анимированные блоки */
+.parent_block {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: 2px solid var(--anime-border-color);
+    box-shadow: 0 4px 15px rgba(255, 119, 170, 0.5);
+}
+
+/* Движение блока: стиль и тень */
+#smallBlock {
+    background-color: var(--anime-accent-color);
+    box-shadow: 0 4px 20px rgba(247, 211, 88, 0.8);
+}
+
+/* Модальные окна в стиле аниме */
+.modal {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.modal_content {
+    background: var(--main-bg-color);
+    border: 2px solid var(--anime-border-color);
+    border-radius: 15px;
+}
+
+
+body {
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #ff9a9e);
+    background-size: 600% 600%;
+    animation: animeBackground 10s ease infinite;
+}
+
+@keyframes animeBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+button {
+    animation: buttonGlow 2s infinite ease-in-out;
+}
+
+@keyframes buttonGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 119, 170, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 119, 170, 1);
+    }
+}
+
+.petal {
+    position: fixed;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    background-color: rgba(255, 119, 170, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 119, 170, 0.5);
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
 }

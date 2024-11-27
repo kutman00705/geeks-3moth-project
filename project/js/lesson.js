@@ -163,3 +163,15 @@ searchButton.onclick = async () => {
         console.error("Ошибка при запросе погоды:", error);
     }
 };
+
+
+function createPetal() {
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    petal.style.left = `${Math.random() * 100}vw`;
+    petal.style.animationDuration = `${Math.random() * 3 + 2}s`;
+    document.body.appendChild(petal);
+    setTimeout(() => petal.remove(), 5000);
+}
+
+setInterval(createPetal, 300);

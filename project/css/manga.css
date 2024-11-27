@@ -1,4 +1,4 @@
-/* Основной контейнер каталога */
+
 .catalog {
     display: flex;
     margin-top: 80px;
@@ -13,7 +13,7 @@
 .catalog-card {
     padding: 20px;
     width: 300px;
-    background-color: rgba(61, 102, 92, 0.66);
+    background-color: rgba(29, 170, 135, 0.66);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -39,7 +39,7 @@
     font-size: 18px;
     font-weight: 600;
     margin: 15px 15px 10px;
-    color: #333333;
+    color: #111180;
 }
 
 /* Текст описания */
@@ -47,7 +47,7 @@
     font-size: 14px;
     line-height: 1.5;
     margin: 0 15px 15px;
-    color: #666666;
+    color: #111180;
     text-align: justify;
 }
 

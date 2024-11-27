@@ -7,7 +7,7 @@ let showCatalog = async ()=>{
             let div = document.createElement("div")
             div.setAttribute("class", "catalog-card")
             div.innerHTML=`
-                <img src="https://media.2x2tv.ru/content/images/2022/05/452b4714af0c5cc798644a8052c2fa41.jpg" alt="">
+                <img src="https://www.superprof.ie/blog/wp-content/uploads/2019/06/Shonen-Jump.jpg" alt="">
                 <h3>${item.title}</h3>
                 <p>${item.body}</p>
             `
